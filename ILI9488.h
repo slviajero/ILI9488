@@ -15,8 +15,6 @@
   MIT license, all text above must be included in any redistribution
  ****************************************************/
 
-
-test
 #ifndef _ILI9488H_
 #define _ILI9488H_
 
@@ -33,11 +31,14 @@ test
   #include <pgmspace.h>
 #endif
 
-#ifdef ARDUINO_STM32_FEATHER
-typedef volatile uint32 RwReg;
+#if defined(ARDUINO_STM32_FEATHER) || defined(ARDUINO_ARCH_RP2040)
+typedef volatile uint32_t RwReg;
 #endif
 #if defined (__AVR__) || defined(TEENSYDUINO) || defined (__arm__) || defined (__STM32F1__)
 #define USE_FAST_PINIO
+#endif
+#if defined(ARDUINO_ARCH_RP2040) 
+#undef USE_FAST_PINIO
 #endif
 
 #define ILI9488_TFTWIDTH  320
